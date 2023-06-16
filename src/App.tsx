@@ -6,7 +6,7 @@ import { sidebarItems } from "./global/Data";
 import Main from "./pages/Main";
 
 const LazyComponent = (componentName: string) => {
-	const LazyLoadedComponent = lazy(() => import(`./twigs/${componentName}`));
+	const LazyLoadedComponent = lazy(() => import(/* @vite-ignore */`./twigs/${componentName}.tsx`));
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>

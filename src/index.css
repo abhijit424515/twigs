@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	#markdown {
+		@apply bg-slate-200;
+	}
+	#markdown > h1 {
+		@apply text-3xl my-2;
+	}
+	#markdown > h2 {
+		@apply text-2xl my-2;
+	}
+	#markdown > h3 {
+		@apply text-xl my-2;
+	}
+}
+
+#mdpage > *::-webkit-scrollbar {
+	display: none;
+}
+#mdpage > * {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
