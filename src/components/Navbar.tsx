@@ -48,7 +48,7 @@ export default function Header({ sidebarToggle }: Props) {
 				</div>
 			</div>
 			<div className="flex gap-x-3 items-center">
-				<a href="upi://pay?pa=abhijit.amrendra.kumar@oksbi&pn=%20&tr=%20&cu=INR">
+				<a href="upi://pay?pa=abhijit.amrendra.kumar@okhdfcbank&pn=%20&tr=%20&cu=INR">
 					<DonateIcon />
 				</a>
 				<div className="aspect-square h-8 w-8">
