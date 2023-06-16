@@ -1,10 +1,13 @@
 import { AppIcon, GithubIcon, Hamburger, SearchIcon } from "../global/Icons";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
 	sidebarToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Header({ sidebarToggle }: Props) {
+	const navigate = useNavigate();
+
 	return (
 		<div className="w-full md:px-4 pl-2 pr-4 py-4 h-14 border-b-2 flex justify-between items-center gap-x-4">
 			<div className="flex items-center gap-x-2">
@@ -14,7 +17,10 @@ export default function Header({ sidebarToggle }: Props) {
 				>
 					<Hamburger />
 				</button>
-				<div className="text-xl md:flex hidden gap-x-2 items-center">
+				<div
+					className="text-xl md:flex hidden gap-x-2 items-center cursor-pointer"
+					onClick={() => navigate("/")}
+				>
 					<AppIcon />
 					<div className="gradient-text font-semibold">twigs</div>
 				</div>
