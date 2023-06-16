@@ -17,7 +17,12 @@ const Hamburger = () => (
 
 const GithubIcon = () => (
 	<svg
-		onClick={() => (window as Window).open("http://www.google.com", "_blank")}
+		onClick={() =>
+			(window as Window).open(
+				"https://github.com/abhijit424515/twigs",
+				"_blank"
+			)
+		}
 		viewBox="0 0 16 16"
 		className="w-8 h-8 hover:text-blue-600 cursor-pointer duration-200"
 		fill="currentColor"
