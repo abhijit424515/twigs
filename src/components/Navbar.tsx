@@ -1,4 +1,10 @@
-import { AppIcon, GithubIcon, Hamburger, SearchIcon } from "../global/Icons";
+import {
+	AppIcon,
+	GithubIcon,
+	Hamburger,
+	SearchIcon,
+	DonateIcon,
+} from "../global/Icons";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -41,8 +47,13 @@ export default function Header({ sidebarToggle }: Props) {
 					</kbd>
 				</div>
 			</div>
-			<div className="aspect-square h-8 w-8">
-				<GithubIcon />
+			<div className="flex gap-x-3 items-center">
+				<a href="upi://pay?pa=abhijit.amrendra.kumar@oksbi&pn=%20&tr=%20&cu=INR">
+					<DonateIcon />
+				</a>
+				<div className="aspect-square h-8 w-8">
+					<GithubIcon />
+				</div>
 			</div>
 		</div>
 	);
