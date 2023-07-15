@@ -32,7 +32,6 @@ export default function LaTeXEditor() {
 		const generator = new HtmlGenerator({ hyphenate: false });
 		const doc = parse(text, { generator: generator }).htmlDocument()
 			.documentElement.outerHTML;
-
 		if (bottomRef && doc) {
 			(bottomRef.current as HTMLDivElement).innerHTML = doc;
 		}
@@ -40,7 +39,7 @@ export default function LaTeXEditor() {
 
 	return (
 		<div
-			className="flex md:flex-row flex-col w-full h-full p-2 gap-x-2"
+			className="flex md:flex-row flex-col w-full md:h-full h-[150vh] p-2 gap-x-2"
 			id="mdpage"
 		>
 			<textarea
@@ -54,7 +53,7 @@ export default function LaTeXEditor() {
 			/>
 			<div
 				className="w-full h-full outline-none border-2 border-slate-300 rounded-md p-2 overflow-y-scroll overflow-hidden"
-				id="markdown"
+				id="latex"
 				ref={bottomRef}
 				onScroll={handleScroll}
 			/>

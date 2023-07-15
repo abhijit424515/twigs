@@ -1,6 +1,6 @@
-import MarkdownEditor from "./MarkdownEditor/MarkdownEditor";
-import MapSVGEditor from "./MapSVGEditor/MapSVGEditor";
-import LaTeXEditor from "./LaTeXEditor/LaTeXEditor";
-import DragNDrop from "./DragNDrop/DragNDrop";
+import MarkdownEditor from "./MarkdownEditor";
+import MapSVGEditor from "./MapSVGEditor";
+import LaTeXEditor from "./LaTeXEditor";
+import DragNDrop from "./DragNDrop";
 
 export { MarkdownEditor, MapSVGEditor, LaTeXEditor, DragNDrop };

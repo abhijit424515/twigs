@@ -3,6 +3,7 @@ const sidebarItems: string[] = [
 	"Markdown Editor",
 	"LaTeX Editor",
 	"Drag N Drop",
+	"Image Convertor",
 ];
 
 export { sidebarItems };

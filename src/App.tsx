@@ -7,8 +7,7 @@ import Main from "./pages/Main";
 
 const LazyComponent = (componentName: string) => {
 	const LazyLoadedComponent = lazy(
-		() =>
-			import(/* @vite-ignore */ `./twigs/${componentName}/${componentName}.tsx`)
+		() => import(/* @vite-ignore */ `./twigs/${componentName}/index.tsx`)
 	);
 
 	return (

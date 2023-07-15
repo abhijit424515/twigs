@@ -152,7 +152,7 @@ export default function Header({ sidebarToggle }: Props) {
 				</div>
 				<div className="flex gap-x-3 items-center">
 					<button
-						className="flex gap-x-2 font-semibold border-black border-2 px-2 py-1 rounded-lg duration-200 bg-black text-white hover:bg-white hover:text-black"
+						className="flex gap-x-2 items-center font-semibold border-black border-2 px-2 py-1 rounded-lg duration-200 bg-black text-white hover:bg-white hover:text-black"
 						onClick={() => setDonationPopup(1)}
 					>
 						<div className="hidden md:flex">Donate</div> <DonateIcon />
