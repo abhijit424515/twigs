@@ -1,9 +1,11 @@
-import { useState, useRef } from "react";
-import ReactMarkdown from "react-markdown";
-import SampleMD from "./assets/sample.mdx?raw";
+import { useState, useRef, useEffect } from "react";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { parse, HtmlGenerator } from "latex.js";
+import SampleTex from "./assets/sample.tex?raw";
 
-export default function MarkdownEditor() {
-	const [text, setText] = useState(SampleMD);
+export default function LaTeXEditor() {
+	const [text, setText] = useState(SampleTex);
 	const topRef = useRef<HTMLTextAreaElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -11,12 +13,30 @@ export default function MarkdownEditor() {
 		event: React.UIEvent<HTMLDivElement | HTMLTextAreaElement>
 	) => {
 		const { scrollTop } = event.currentTarget;
-		if (event.currentTarget === topRef.current && bottomRef.current) {
+		if (
+			bottomRef &&
+			event.currentTarget === topRef.current &&
+			bottomRef.current
+		) {
 			bottomRef.current.scrollTop = scrollTop;
-		} else if (event.currentTarget === bottomRef.current && topRef.current) {
+		} else if (
+			topRef &&
+			event.currentTarget === bottomRef.current &&
+			topRef.current
+		) {
 			topRef.current.scrollTop = scrollTop;
 		}
 	};
+
+	useEffect(() => {
+		const generator = new HtmlGenerator({ hyphenate: false });
+		const doc = parse(text, { generator: generator }).htmlDocument()
+			.documentElement.outerHTML;
+
+		if (bottomRef && doc) {
+			(bottomRef.current as HTMLDivElement).innerHTML = doc;
+		}
+	}, [text]);
 
 	return (
 		<div
@@ -37,14 +57,7 @@ export default function MarkdownEditor() {
 				id="markdown"
 				ref={bottomRef}
 				onScroll={handleScroll}
-			>
-				<ReactMarkdown
-					children={text}
-					// remarkPlugins={[/* Add any required remark plugins here */]}
-					// rehypePlugins={[/* Add any required rehype plugins here */]}
-					// transformImageUri={(uri) => uri} // Optional: Customize image URIs
-				/>
-			</div>
+			/>
 		</div>
 	);
 }

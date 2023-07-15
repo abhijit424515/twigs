@@ -10,14 +10,21 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"latex.js": "^0.12.6",
 		"react": "^18.2.0",
+		"react-beautiful-dnd": "^13.1.1",
 		"react-dom": "^18.2.0",
+		"react-latex": "^2.0.0",
+		"react-markdown": "^8.0.7",
+		"react-qr-code": "^2.0.11",
 		"react-router-dom": "^6.13.0",
-		"react-markdown": "^8.0.7"
+		"tailwind-styled-components": "^2.2.0"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.37",
+		"@types/react-beautiful-dnd": "^13.1.4",
 		"@types/react-dom": "^18.0.11",
+		"@types/react-latex": "^2.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.59.0",
 		"@typescript-eslint/parser": "^5.59.0",
 		"@vitejs/plugin-react-swc": "^3.0.0",
