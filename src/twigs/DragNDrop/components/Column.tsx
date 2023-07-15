@@ -1,21 +1,22 @@
-import { Droppable } from "react-beautiful-dnd";
+// import { Droppable } from "react-beautiful-dnd";
 
-interface ColumnProps {
-	column: {
-		id: string;
-		title: string;
-		taskIds: string[];
-	};
-	tasks: {
-		id: string;
-		content: string;
-	}[];
-}
+// interface ColumnProps {
+// 	column: {
+// 		id: string;
+// 		title: string;
+// 		taskIds: string[];
+// 	};
+// 	tasks: {
+// 		id: string;
+// 		content: string;
+// 	}[];
+// }
 
-export default function Column({ column, tasks }: ColumnProps) {
+// export default function Column({ column, tasks }: ColumnProps) {
+export default function Column() {
 	return (
 		<div>
-			<div>{column.title}</div>
+			{/* <div>{column.title}</div>
 			<Droppable droppableId={column.id}>
 				{(provided) => (
 					<TaskList innerRef={provided.innerRef} {...provided.droppableProps}>
@@ -25,7 +26,7 @@ export default function Column({ column, tasks }: ColumnProps) {
 						{provided.placeholder}
 					</TaskList>
 				)}
-			</Droppable>
+			</Droppable> */}
 		</div>
 	);
 }

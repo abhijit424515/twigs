@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./components/Column";
-import { initialData } from "./assets/sample";
+// import { useState } from "react";
+// import { DragDropContext } from "react-beautiful-dnd";
+// import Column from "./components/Column";
+// import { initialData } from "./assets/sample";
 
 export default function DragNDrop() {
-	const [state, setState] = useState(initialData);
+	// const [state, setState] = useState(initialData);
 
-	function onDragEnd() {
-		// TODO
-	}
+	// function onDragEnd() {
+	// 	// TODO
+	// }
 
 	return (
 		<div></div>
