@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { sidebarItems } from "./global/Data";
 import Main from "./pages/Main";
+import { Toaster } from "react-hot-toast";
 
 const LazyComponent = (componentName: string) => {
 	const LazyLoadedComponent = lazy(
@@ -23,6 +24,7 @@ export default function App() {
 
 	return (
 		<BrowserRouter basename="/">
+			<Toaster />
 			<div className="min-h-screen">
 				<Navbar sidebarToggle={setDrawer} />
 				<div className="flex">
