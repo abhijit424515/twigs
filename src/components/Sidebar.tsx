@@ -23,7 +23,7 @@ export default function Sidebar({ open, largeScreen }: Props) {
 
 	return (
 		<div
-			className="md:w-64 w-72 h-[calc(100vh-3.5rem)] duration-200 z-10 absolute p-2 flex flex-col gap-y-1 border-r-2 border-slate-200"
+			className="md:w-64 w-72 h-[calc(100vh-3.5rem)] bg-white duration-200 z-10 absolute p-2 flex flex-col gap-y-1 border-r-2 border-slate-200"
 			style={{
 				transform: open
 					? "translate(0)"

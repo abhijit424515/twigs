@@ -9,6 +9,10 @@
 	font-size: medium;
 }
 
+.leaflet-control-attribution.leaflet-control {
+	display: none;
+}
+
 @layer components {
 	ol {
 		@apply list-decimal ml-5;

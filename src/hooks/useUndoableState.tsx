@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 // If you're only working with primitives, this is not required
-import isEqual from "lodash/isEqual";
 export default function useUndoableState(init: any) {
 	const [states, setStates] = useState([init]); // Used to store history of all states
 	const [index, setIndex] = useState(0); // Index of current state within `states`
@@ -9,7 +8,7 @@ export default function useUndoableState(init: any) {
 	const setState = (value: any) => {
 		// Use lodash isEqual to check for deep equality
 		// If state has not changed, return to avoid triggering a re-render
-		if (isEqual(state, value)) {
+		if (state == value) {
 			return;
 		}
 		const copy = states.slice(0, index + 1); // This removes all future (redo) states after current index

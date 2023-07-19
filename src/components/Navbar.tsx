@@ -10,9 +10,9 @@ import QRCode from "react-qr-code";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
-const Input = tw.input`py-2 px-2 outline-none rounded-lg bg-gray-200 text-black`;
-const Textarea = tw.textarea`py-2 px-2 outline-none rounded-lg bg-gray-200 text-black`;
-const Label = tw.label`font-semibold text-xl`;
+const Input = tw.input`py-2 px-2 outline-none rounded-lg bg-gray-200 text-black text-sm`;
+const Textarea = tw.textarea`py-2 px-2 outline-none rounded-lg bg-gray-200 text-black text-sm`;
+const Label = tw.label`font-semibold text-normal`;
 
 interface Props {
 	sidebarToggle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,9 +32,9 @@ export default function Header({ sidebarToggle }: Props) {
 				className="absolute px-4 top-0 w-full h-screen bg-[#00000066] z-[100] backdrop-blur-sm duration-200 justify-center items-center"
 				style={{ display: donationPopup > 0 ? "flex" : "none" }}
 			>
-				<div className="flex w-full max-w-md flex-col gap-y-4 bg-white py-8 px-8 rounded-2xl">
+				<div className="flex w-full max-w-xs flex-col gap-y-2 bg-white py-6 px-6 rounded-2xl">
 					<div className="flex justify-between items-center mb-4">
-						<p className="text-3xl font-bold">Support My Work</p>
+						<p className="text-2xl font-bold">Buy Me a Coffee</p>
 						<button onClick={() => setDonationPopup(0)}>
 							<svg
 								stroke="currentColor"
@@ -74,7 +74,7 @@ export default function Header({ sidebarToggle }: Props) {
 									setDonationPopup(2);
 								}}
 								style={{ display: form.amount ? "" : "none" }}
-								className="w-full flex gap-x-2 text-xl justify-center items-center border-2 duration-200 border-black hover:bg-black hover:text-white mt-8 py-3 px-2 rounded-lg"
+								className="w-full flex gap-x-2 text-normal justify-center items-center border-2 duration-200 border-black hover:bg-black hover:text-white mt-4 py-3 px-2 rounded-lg"
 							>
 								Pay ₹{form.amount}
 								<img
@@ -96,7 +96,7 @@ export default function Header({ sidebarToggle }: Props) {
 							<p className="w-full text-sm font-semibold">
 								Use any UPI app to scan above QR code and complete the payment.
 							</p>
-							<div className="w-full flex justify-center items-center gap-x-6 mt-2">
+							<div className="w-full flex justify-center items-center gap-x-4 mt-2">
 								<img
 									className="h-4"
 									src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg"
@@ -127,7 +127,7 @@ export default function Header({ sidebarToggle }: Props) {
 						<Hamburger />
 					</button>
 					<div
-						className="text-xl md:flex hidden gap-x-2 items-center cursor-pointer"
+						className="text-xl md:flex hidden gap-x-2 items-center cursor-pointer hover:text-blue-600 duration-200"
 						onClick={() => navigate("/")}
 					>
 						<AppIcon />
@@ -152,10 +152,10 @@ export default function Header({ sidebarToggle }: Props) {
 				</div>
 				<div className="flex gap-x-3 items-center">
 					<button
-						className="flex gap-x-2 items-center font-semibold border-black border-2 px-2 py-1 rounded-lg duration-200 bg-black text-white hover:bg-white hover:text-black"
+						className="flex gap-x-2 items-center font-semibold px-2 py-1 rounded-lg duration-200 hover:text-blue-600"
 						onClick={() => setDonationPopup(1)}
 					>
-						<div className="hidden md:flex">Donate</div> <DonateIcon />
+						<DonateIcon />
 					</button>
 					<div className="aspect-square h-8 w-8">
 						<GithubIcon />
