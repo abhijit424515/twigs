@@ -39,7 +39,7 @@ export default function ImageConvertor() {
 			const oldName = (file as unknown as File).name;
 			const l = oldName.split(".");
 			const oldXLen = l[l.length - 1].length;
-			return oldName.substring(0, oldName.length - oldXLen - 1);
+			return oldName.substring(0, oldName.length - oldXLen - 1) + "." + format;
 		}
 		return "";
 	}
@@ -59,7 +59,7 @@ export default function ImageConvertor() {
 		<div className="h-full w-full flex justify-center items-center">
 			<div className="flex flex-col gap-y-4 max-w-full p-4">
 				<div
-					className="border-2 border-gray-300 rounded-lg max-w-full w-[20rem] h-[16rem]"
+					className="border-2 border-gray-300 rounded-lg max-w-full w-[20rem] h-[16rem] relative"
 					ref={dropRef}
 					onDragOver={(e) => {
 						setAnimate(true);
@@ -78,19 +78,26 @@ export default function ImageConvertor() {
 					>
 						{file ? "File Selected" : "Drop Here"}
 					</div>
+					<input
+						type="file"
+						className="absolute w-full h-full opacity-0 top-0 cursor-pointer"
+						onChange={(e) => setFile((e.target as HTMLInputElement).files![0])}
+					/>
 				</div>
 				<Select
 					placeholder={format}
 					value={format}
-					onChange={(a) => setFormat(a as string)}
+					onChange={(a, _) => setFormat((a as any).value)}
 					options={options.map((x) => ({ value: x, label: x })) as any}
 				/>
-				<a
-					className="py-2 px-2 text-green-500 border-2 border-green-500 duration-200 hover:bg-green-500 hover:text-white rounded-lg text-center cursor-pointer"
-					onClick={onSubmit}
-				>
-					Convert
-				</a>
+				{!link && (
+					<a
+						className="py-2 px-2 text-green-500 border-2 border-green-500 duration-200 hover:bg-green-500 hover:text-white rounded-lg text-center cursor-pointer"
+						onClick={onSubmit}
+					>
+						Convert
+					</a>
+				)}
 				{link && (
 					<a
 						className="py-2 px-2 text-blue-500 border-2 border-blue-500 duration-200 hover:bg-blue-500 hover:text-white rounded-lg text-center cursor-pointer"
