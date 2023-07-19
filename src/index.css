@@ -10,6 +10,10 @@
 }
 
 @layer components {
+	ol {
+		@apply list-decimal ml-5;
+	}
+
 	#markdown {
 		@apply bg-white px-4;
 	}

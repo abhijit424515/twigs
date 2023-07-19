@@ -1,4 +1,4 @@
-const sidebarItems: string[] = [
+export const sidebarItems: string[] = [
 	"Map SVG Editor",
 	"Markdown Editor",
 	"LaTeX Editor",
@@ -6,4 +6,9 @@ const sidebarItems: string[] = [
 	"Image Convertor",
 ];
 
-export { sidebarItems };
+export const SHORTCUTS: any = {
+	BOLD: {
+		start: "**",
+		end: "**",
+	},
+};

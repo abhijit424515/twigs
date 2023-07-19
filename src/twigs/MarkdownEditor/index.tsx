@@ -1,14 +1,28 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import SampleMD from "./assets/sample.mdx?raw";
 import hljs from "highlight.js";
 import toast from "react-hot-toast";
+import { SHORTCUTS } from "../../global/Data";
+import useUndoableState from "../../hooks/useUndoableState";
 
 export default function MarkdownEditor() {
-	const [text, setText] = useState(SampleMD);
+	// const [text, setText] = useState(SampleMD);
 	const topRef = useRef<HTMLTextAreaElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
+	const [selection, setSelection] = useState({ start: 0, end: 0 });
+	const {
+		state: doc,
+		setState: setDoc,
+		// resetState: resetDoc,
+		// index: docStateIndex,
+		// lastIndex: docStateLastIndex,
+		// goBack: undoDoc,
+		// goForward: redoDoc,
+	} = useUndoableState({ text: SampleMD });
+	// const canUndo = docStateIndex > 0;
+	// const canRedo = docStateIndex < docStateLastIndex;
 
 	const handleScroll = (
 		event: React.UIEvent<HTMLDivElement | HTMLTextAreaElement>
@@ -26,7 +40,36 @@ export default function MarkdownEditor() {
 		toast.success("Copied to Clipboard");
 	}
 
-	useEffect(() => {});
+	console.log("SELECTION:", doc.text.substring(selection.start, selection.end));
+
+	function shortCutChecker(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+		const combo: any = {
+			BOLD: e.key == "b" && e.ctrlKey,
+		};
+
+		const shortcut = Object.keys(combo).find((key) => combo[key] === true);
+		return SHORTCUTS[shortcut!];
+	}
+
+	function onKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+		const modif = shortCutChecker(e);
+		if (modif) {
+			let newText =
+				doc.text.substring(0, selection.start) +
+				modif.start +
+				doc.text.substring(selection.start, selection.end) +
+				modif.end +
+				doc.text.substring(selection.end);
+			setDoc({ text: newText });
+		}
+		// (topRef.current as HTMLTextAreaElement).selectionStart = selection.start;
+		// (topRef.current as HTMLTextAreaElement).selectionEnd = selection.start;
+	}
+
+	function onKeyUp(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+		const p = e.target as HTMLTextAreaElement;
+		setSelection({ start: p.selectionStart, end: p.selectionEnd });
+	}
 
 	return (
 		<div
@@ -37,8 +80,12 @@ export default function MarkdownEditor() {
 				ref={topRef}
 				onScroll={handleScroll}
 				spellCheck={false}
-				value={text}
-				onChange={(e) => setText(e.target.value)}
+				onKeyDown={onKeyDown}
+				onKeyUp={onKeyUp}
+				value={doc.text}
+				onChange={(e) => {
+					setDoc({ text: e.target.value });
+				}}
 				className="w-full h-full outline-none border-2 border-slate-300 rounded-md p-2 overflow-y-scroll overflow-hidden"
 				style={{ resize: "none" }}
 			/>
@@ -68,7 +115,7 @@ export default function MarkdownEditor() {
 								.reduce((x: string, y: string) => x + "<br />" + y);
 
 							return (
-								<div className="bg-black relative text-white rounded-lg my-4 border-2 border-black overflow-hidden">
+								<pre className="bg-black relative text-white rounded-lg my-4 border-2 border-black overflow-hidden">
 									<div
 										className="codeblock p-2"
 										style={{ fontFamily: "monospace, sans-serif" }}
@@ -88,7 +135,7 @@ export default function MarkdownEditor() {
 											/>
 										</div>
 									</div>
-								</div>
+								</pre>
 							);
 						},
 						code({ node, inline, className, children, ...props }) {
@@ -105,7 +152,7 @@ export default function MarkdownEditor() {
 						},
 					}}
 				>
-					{text}
+					{doc.text}
 				</ReactMarkdown>
 			</div>
 		</div>
