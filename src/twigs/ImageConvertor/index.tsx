@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import Select from "react-select";
+import Select from "./components/Select";
 
-const options: string[] = ["png", "jpeg", "webp"];
+const options: string[] = ["WEBP", "PNG", "JPEG"];
 
 export default function ImageConvertor() {
 	const cRef = useRef(null);
@@ -9,7 +9,8 @@ export default function ImageConvertor() {
 	const [file, setFile] = useState<string | {}>("");
 	const [link, setLink] = useState("");
 	const [animate, setAnimate] = useState(false);
-	const [format, setFormat] = useState("webp");
+	const [format, setFormat] = useState("WEBP");
+	const [compression, setCompression] = useState("90");
 
 	async function onSubmit() {
 		const canvas = cRef.current as unknown as HTMLCanvasElement;
@@ -22,8 +23,11 @@ export default function ImageConvertor() {
 				canvas.height = img.height;
 				ctx.drawImage(img, 0, 0);
 
-				const convertedImageData = canvas.toDataURL(`image/${format}`);
-				setLink(convertedImageData);
+				canvas.toBlob(
+					(blob) => setLink(window.URL.createObjectURL(blob as Blob)),
+					`image/${format.toLowerCase()}`,
+					parseInt(compression) / 100
+				);
 			}
 		};
 
@@ -39,7 +43,11 @@ export default function ImageConvertor() {
 			const oldName = (file as unknown as File).name;
 			const l = oldName.split(".");
 			const oldXLen = l[l.length - 1].length;
-			return oldName.substring(0, oldName.length - oldXLen - 1) + "." + format;
+			return (
+				oldName.substring(0, oldName.length - oldXLen - 1) +
+				"." +
+				format.toLowerCase()
+			);
 		}
 		return "";
 	}
@@ -81,33 +89,73 @@ export default function ImageConvertor() {
 					<input
 						type="file"
 						className="absolute w-full h-full opacity-0 top-0 cursor-pointer"
-						onChange={(e) => setFile((e.target as HTMLInputElement).files![0])}
+						onChange={(e) => {
+							console.log((e.target as HTMLInputElement).files);
+							setFile((e.target as HTMLInputElement).files![0]);
+						}}
 					/>
 				</div>
-				<Select
-					placeholder={format}
-					value={format}
-					onChange={(a, _) => setFormat((a as any).value)}
-					options={options.map((x) => ({ value: x, label: x })) as any}
-				/>
 				{!link && (
-					<a
-						className="py-2 px-2 text-green-500 border-2 border-green-500 duration-200 hover:bg-green-500 hover:text-white rounded-lg text-center cursor-pointer"
-						onClick={onSubmit}
-					>
-						Convert
-					</a>
+					<>
+						<div className="flex flex-col">
+							<label htmlFor="rangeSlider" className="text-sm mb-2">
+								Select output format
+							</label>
+							<Select
+								state={{ option: format, setOption: setFormat, options }}
+							/>
+						</div>
+						<div className="flex flex-col">
+							<label htmlFor="rangeSlider" className="text-sm mb-1">
+								Quality -{" "}
+								<span className="font-semibold text-sm text-blue-600">
+									{compression} %
+								</span>
+							</label>
+							<input
+								id="rangeSlider"
+								type="range"
+								className="w-full"
+								min={0}
+								max={100}
+								value={compression}
+								onChange={(e) => setCompression(e.target.value)}
+							/>
+						</div>
+
+						<a
+							className="py-2 px-2 text-green-500 border-2 border-green-500 duration-200 hover:bg-green-500 hover:text-white rounded-lg text-center cursor-pointer"
+							onClick={onSubmit}
+						>
+							Convert
+						</a>
+					</>
 				)}
 				{link && (
-					<a
-						className="py-2 px-2 text-blue-500 border-2 border-blue-500 duration-200 hover:bg-blue-500 hover:text-white rounded-lg text-center cursor-pointer"
-						href={link}
-						target="_blank"
-						download={newFileName()}
-					>
-						Download
-					</a>
+					<>
+						<a
+							className="py-2 px-2 text-blue-500 border-2 border-blue-500 duration-200 hover:bg-blue-500 hover:text-white rounded-lg text-center cursor-pointer"
+							href={link}
+							target="_blank"
+							download={newFileName()}
+						>
+							Download
+						</a>
+						<button
+							onClick={() => {
+								setFile("");
+								setLink("");
+							}}
+							className="py-2 px-2 text-green-500 border-2 border-green-500 duration-200 hover:bg-green-500 hover:text-white rounded-lg text-center cursor-pointer"
+						>
+							Convert again
+						</button>
+					</>
 				)}
+				<p className="text-xs text-gray-400 break-words max-w-[20rem]">
+					Note: For PNG output format, quality modification is currently not
+					working.
+				</p>
 				<canvas ref={cRef} className="hidden" />
 			</div>
 		</div>
